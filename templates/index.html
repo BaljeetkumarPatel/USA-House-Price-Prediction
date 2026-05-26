@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Powered USA House Price Prediction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <header class="hero" id="home">
+    <nav class="top-nav glass">
+      <div class="brand">ESTATE.AI</div>
+      <div class="nav-links">
+        <a href="#predictor">Predictor</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <div class="hero-text" data-aos="fade-up">
+        <p class="chip">Luxury Real Estate Intelligence</p>
+        <h1>AI Powered USA House Price Prediction</h1>
+        <p class="sub">Predict property prices intelligently using Machine Learning and market analytics.</p>
+        <div class="cta-wrap">
+          <a class="btn btn-primary" href="#predictor">Start Prediction</a>
+          <a class="btn btn-ghost" href="#about">Explore Platform</a>
+        </div>
+      </div>
+      <div class="floating-cards" data-aos="zoom-in">
+        <div class="stat-card glass"><span id="counter-model">0</span><small>AI Predictions</small></div>
+        <div class="stat-card glass"><span id="counter-accuracy">0</span><small>Confidence Engine</small></div>
+        <div class="stat-card glass"><span id="counter-markets">0</span><small>Market Signals</small></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="predictor" class="section">
+      <div class="container two-col">
+        <div class="panel glass" data-aos="fade-right">
+          <h2>Live Model Prediction</h2>
+          <p>Model is loaded from your saved file and used instantly, with no retraining.</p>
+          <form id="prediction-form">
+            <div class="field">
+              <label>Average Area Income ($)</label>
+              <input type="range" id="incomeRange" min="{{ feature_stats['Avg. Area Income']['min']|round(0) }}" max="{{ feature_stats['Avg. Area Income']['max']|round(0) }}" step="100" value="{{ feature_stats['Avg. Area Income']['mean']|round(0) }}">
+              <input type="number" id="income" required value="{{ feature_stats['Avg. Area Income']['mean']|round(0) }}">
+            </div>
+            <div class="field">
+              <label>Average Area House Age</label>
+              <input type="range" id="ageRange" min="{{ feature_stats['Avg. Area House Age']['min']|round(1) }}" max="{{ feature_stats['Avg. Area House Age']['max']|round(1) }}" step="0.1" value="{{ feature_stats['Avg. Area House Age']['mean']|round(1) }}">
+              <input type="number" id="age" step="0.1" required value="{{ feature_stats['Avg. Area House Age']['mean']|round(1) }}">
+            </div>
+            <div class="field">
+              <label>Average Area Number of Rooms</label>
+              <input type="range" id="roomsRange" min="{{ feature_stats['Avg. Area Number of Rooms']['min']|round(1) }}" max="{{ feature_stats['Avg. Area Number of Rooms']['max']|round(1) }}" step="0.1" value="{{ feature_stats['Avg. Area Number of Rooms']['mean']|round(1) }}">
+              <input type="number" id="rooms" step="0.1" required value="{{ feature_stats['Avg. Area Number of Rooms']['mean']|round(1) }}">
+            </div>
+            <div class="field">
+              <label>Area Population</label>
+              <input type="range" id="populationRange" min="{{ feature_stats['Area Population']['min']|round(0) }}" max="{{ feature_stats['Area Population']['max']|round(0) }}" step="100" value="{{ feature_stats['Area Population']['mean']|round(0) }}">
+              <input type="number" id="population" required value="{{ feature_stats['Area Population']['mean']|round(0) }}">
+            </div>
+            <div class="field">
+              <label>Avg. Area Number of Bedrooms (UI Insight)</label>
+              <input type="number" id="bedrooms" step="0.1" placeholder="Optional, for dashboard context only">
+            </div>
+            <button class="btn btn-primary w-full" type="submit">Predict House Price</button>
+          </form>
+          <div id="loading" class="loading hidden">Running AI valuation...</div>
+        </div>
+
+        <div class="panel result-panel glass" data-aos="fade-left">
+          <h3>Prediction Result</h3>
+          <div id="result-price" class="result-price">$0</div>
+          <div id="result-confidence" class="badge">Confidence: 0%</div>
+          <p id="result-summary">Enter values and run prediction to view AI insights.</p>
+          <div id="factor-list" class="factor-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="analytics" class="section">
+      <div class="container">
+        <h2 data-aos="fade-up">Real-Estate Analytics Dashboard</h2>
+        <div class="charts-grid">
+          <div class="chart-card glass" data-aos="fade-up"><canvas id="featureChart"></canvas></div>
+          <div class="chart-card glass" data-aos="fade-up" data-aos-delay="100"><canvas id="marketChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section compact">
+      <div class="container grid-3">
+        <div class="info-card glass" data-aos="fade-up"><h4>About AI System</h4><p>Production-grade pricing engine using your pre-trained ML model file.</p></div>
+        <div class="info-card glass" data-aos="fade-up" data-aos-delay="100"><h4>How It Works</h4><p>Inputs are transformed into a feature vector and evaluated instantly by the loaded estimator.</p></div>
+        <div class="info-card glass" data-aos="fade-up" data-aos-delay="200"><h4>Market Insights</h4><p>Interactive visuals display factor impact, confidence proxy, and trend context.</p></div>
+      </div>
+    </section>
+
+    <section id="faq" class="section compact">
+      <div class="container">
+        <h2>FAQ</h2>
+        <div class="faq-item glass"><h5>Is the model retrained on each request?</h5><p>No. Predictions use only the saved model loaded at server start.</p></div>
+        <div class="faq-item glass"><h5>Why include bedrooms input?</h5><p>Your current model does not use bedrooms; it is shown as a market context field.</p></div>
+        <div class="faq-item glass"><h5>Is this responsive?</h5><p>Yes, optimized for desktop, tablet, and mobile layouts.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Premium AI Property Analytics Platform | Flask + ML + Interactive UI</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

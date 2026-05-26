@@ -1,0 +1,69 @@
+:root {
+  --bg: #08131f;
+  --bg-2: #0d2233;
+  --card: rgba(10, 24, 38, 0.55);
+  --text: #eaf3ff;
+  --muted: #9ec2db;
+  --accent: #3fd2c7;
+  --accent-2: #7be495;
+  --gold: #f5c26b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 20% 20%, #14314a 0%, var(--bg) 60%), linear-gradient(135deg, var(--bg), var(--bg-2));
+  overflow-x: hidden;
+}
+h1,h2,h3,h4,h5 { font-family: "Space Grotesk", sans-serif; margin: 0 0 10px; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1120px, 92%); margin: 0 auto; }
+.hero { min-height: 92vh; padding: 24px 0 60px; position: relative; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; width: min(1120px, 92%); margin: 0 auto; padding: 14px 20px; border: 1px solid rgba(255,255,255,0.18); }
+.brand { font-weight: 800; letter-spacing: 1px; color: var(--gold); }
+.nav-links { display: flex; gap: 18px; color: var(--muted); }
+.hero-content { width: min(1120px, 92%); margin: 48px auto 0; display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; align-items: center; }
+.chip { display: inline-block; padding: 6px 12px; background: rgba(63,210,199,.15); border: 1px solid rgba(63,210,199,.4); border-radius: 999px; font-size: 12px; color: var(--accent); }
+h1 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.05; margin-top: 14px; }
+.sub { color: var(--muted); max-width: 620px; }
+.cta-wrap { margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { padding: 12px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,.2); font-weight: 700; cursor: pointer; background: transparent; color: var(--text); }
+.btn-primary { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #07211e; border: none; }
+.btn-ghost:hover, .btn-primary:hover { transform: translateY(-2px); }
+.w-full { width: 100%; }
+.glass { backdrop-filter: blur(14px); background: var(--card); border-radius: 18px; border: 1px solid rgba(255,255,255,.15); box-shadow: 0 20px 40px rgba(0,0,0,.25); }
+.floating-cards { display: grid; gap: 12px; }
+.stat-card { padding: 24px; }
+.stat-card span { font-size: 2rem; font-weight: 800; display: block; color: var(--gold); }
+.stat-card small { color: var(--muted); }
+.section { padding: 70px 0; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.panel { padding: 24px; }
+.field { margin-bottom: 12px; }
+.field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.field input[type="number"], .field input[type="range"] { width: 100%; }
+.field input[type="number"] { padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.05); color: var(--text); }
+input[type="range"] { accent-color: var(--accent); }
+.result-panel { position: sticky; top: 24px; height: fit-content; }
+.result-price { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin: 12px 0; color: var(--gold); text-shadow: 0 0 18px rgba(245,194,107,.35); }
+.badge { display: inline-block; padding: 6px 10px; background: rgba(123,228,149,.15); border: 1px solid rgba(123,228,149,.45); border-radius: 999px; color: var(--accent-2); }
+.factor-list { margin-top: 10px; display: grid; gap: 8px; }
+.factor { padding: 10px; border-radius: 10px; background: rgba(255,255,255,.04); font-size: 13px; color: var(--muted); }
+.loading { margin-top: 10px; color: var(--gold); }
+.hidden { display: none; }
+.charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.chart-card { padding: 16px; }
+.compact { padding-top: 30px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.info-card, .faq-item { padding: 18px; }
+.faq-item { margin-top: 10px; }
+.footer { text-align: center; padding: 24px; color: var(--muted); }
+.bg-orb { position: fixed; filter: blur(45px); z-index: -1; border-radius: 50%; opacity: .45; }
+.orb-1 { width: 300px; height: 300px; background: #17a2b8; top: -60px; left: -40px; }
+.orb-2 { width: 260px; height: 260px; background: #8ed081; top: 45%; right: -80px; }
+.orb-3 { width: 320px; height: 320px; background: #f5c26b; bottom: -120px; left: 35%; }
+@media (max-width: 980px) {
+  .hero-content, .two-col, .charts-grid, .grid-3 { grid-template-columns: 1fr; }
+  .result-panel { position: static; }
+}
